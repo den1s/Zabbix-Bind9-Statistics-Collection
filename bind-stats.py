@@ -15,7 +15,7 @@ CACHELIFE = 60
 
 parser = argparse.ArgumentParser()
 parser.add_argument("action", help="discoverzones | counter | zonecounter | zonemaintenancecounter | resolvercounter "
-                                   "| socketcounter | incounter | outcounter")
+                                   "| socketcounter | incounter | outcounter | json")
 parser.add_argument("-z", help="zone")
 parser.add_argument("-c", help="counter name")
 parser.add_argument("-p", help="bind stats port")
@@ -168,7 +168,7 @@ else:
         json.dump(j, f)
 
 if args.action == 'discoverzones':
-    d = {'data': [{'{#ZONE}': zone} for zone in j['zones'].keys()]}
+    d = {'data': [{'{#ZONE}': zone} for zone in j['zones'].keys() if len(j['zones'][zone])>0]}
     print(json.dumps(d))
     sys.exit(0)
 
@@ -183,6 +183,24 @@ elif args.action == 'zonecounter':
     else:
         print("ZBX_NOTSUPPORTED")
         sys.exit(1)
+
+elif args.action == 'jsonzone':
+    if not args.z:
+        print("Missing argument", file=sys.stderr)
+        print("ZBX_NOTSUPPORTED")
+        sys.exit(1)
+    if args.z in j['zones']:
+        print(json.dumps(j['zones'][args.z]))
+        sys.exit(0)
+    else:
+        print("ZBX_NOTSUPPORTED")
+        sys.exit(1)
+
+elif args.action == 'json':
+    del j['zones']
+    print(json.dumps(j))
+    #print(json.dumps(j, indent=4, separators=(',', ': ') ) )
+    sys.exit(0)
 
 else:
     if not args.c:

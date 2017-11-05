@@ -8,6 +8,10 @@ Most statistics available are collected, several aggregate graphs are defined.
 
 [Forked from https://github.com/Pesticles/Zabbix-Bind9-Statistics-Collection](https://github.com/Pesticles/Zabbix-Bind9-Statistics-Collection)
 
+Changes from original:
+* Zones without statistics are not detected
+* The template for Zabbix 3.4 uses dependent item. As a result, one query is made to the agent for general statics and one for each zone.
+
 ## Requirements
 * Zabbix 2.X.X and Zabbix 3.X.X
 * Python 3
