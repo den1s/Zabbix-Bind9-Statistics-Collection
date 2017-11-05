@@ -10,7 +10,7 @@ Most statistics available are collected, several aggregate graphs are defined.
 
 Changes from original:
 * Zones without statistics are not detected
-* The template for Zabbix 3.4 uses dependent item. As a result, one query is made to the agent for general statics and one for each zone.
+* The template for Zabbix 3.4 uses dependent item. As a result, only one query is made to the agent for general statics and one for each zone.
 
 ## Requirements
 * Zabbix 2.X.X and Zabbix 3.X.X
@@ -30,6 +30,11 @@ Debian/Ubuntu)
 contents of
 userparameter_bind.conf)
 * Import the xml template into Zabbix (zbx_bind_statistics_template_v3.xml for Zabbix 3.X.X)
+
+## Update to 3.4
+* Update userparameter_bind.conf and bind-stats.py
+* Restart zabbix-agent
+* Import the xml template zbx_bind_statistics_template_v3.4.xml (previous data will not be lost)
 
 ## Note:
 
