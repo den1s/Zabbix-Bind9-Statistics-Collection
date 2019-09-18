@@ -32,6 +32,9 @@ if os.path.exists(JSONFILE) and time.time() - os.path.getmtime(JSONFILE) <= CACH
         j = json.load(f)
 
 else:
+    if not os.path.exists(JSONFILE):
+        os.makedirs(os.path.dirname(JSONFILE))
+        os.mknod(JSONFILE)
     import http.client
     conn = http.client.HTTPConnection('localhost:{0}'.format(port))
     conn.request('GET', '/')
